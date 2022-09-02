@@ -7,26 +7,59 @@
 #define KOMPONENTE_H
 
 #include <iostream>
+#include <cmath>
 #include "ikomponente.h"
 
 class Komponente : public IKomponente {
 public:
-    explicit Komponente(double xPos = 0.0, double yPos = 0.0);
+    explicit Komponente(double xPos = 0.0, double yPos = 0.0) 
+        : x{xPos}, y{yPos} {}
+
     ~Komponente();
-    double calcTotalPath() const;
-    double getX() const;
-    double getY() const;
-    double getXAbsolute() const;
-    double getYAbsolute() const;
-    double distance(const IKomponente *k) const;
-    const IKomponente* getParent() const;
-    void setParent(const IKomponente *p);
-    void output(std::ostream& os) const;
+
+    double calcTotalPath() const { return 0.0; }
+
+    double getX() const { return x; }
+    
+    double getY() const { return y; }
+    
+    double getXAbsolute() const {
+        double erg = 0.0;
+        if (parent != nullptr) {
+            erg = getX() + parent->getXAbsolute();
+        } else {
+            erg = getX();
+        }
+        return erg;
+    }
+    
+    double getYAbsolute() const {
+        double erg = 0.0;
+        if (parent != nullptr) {
+            erg = getY() + parent->getYAbsolute();
+        } else {
+            erg = getY();
+        }
+        return erg;
+    }
+    
+    double distance(const IKomponente *k) const {
+        return sqrt(pow(this->getXAbsolute() - k->getXAbsolute(), 2) 
+            + pow(this->getYAbsolute() - k->getXAbsolute(), 2));
+    }
+    
+    const IKomponente* getParent() const { return parent; }
+    
+    void setParent(const IKomponente *p) { parent = p; }
+    
+    void output(std::ostream& os) const {
+        os << "(" << getX() << ", " << getY() << ")";
+    }
 
 private:
     double x;
     double y;
-    const IKomponente* parent();
+    const IKomponente* parent;
 };
 
 #endif // KOMPONENTE_H

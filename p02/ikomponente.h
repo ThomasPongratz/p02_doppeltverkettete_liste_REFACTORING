@@ -6,8 +6,8 @@
 class IKomponente {
     public:
         virtual double calcTotalPath() const = 0;
-        virtual double getXAbsolut() const = 0;
-        virtual double getYAbsolut() const = 0;
+        virtual double getXAbsolute() const = 0;
+        virtual double getYAbsolute() const = 0;
         virtual double getX() const = 0; 
         virtual double getY() const = 0;
         virtual double distance(const IKomponente *k) const = 0;
