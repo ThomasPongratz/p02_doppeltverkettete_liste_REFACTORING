@@ -5,7 +5,7 @@
 
 class Iterator {
     public:
-        Iterator(IKomponentenElement *begin = nullptr) : curr{begin} {}
+        explicit Iterator(IKomponentenElement *begin = nullptr) : curr{begin} {}
         ~Iterator();
         Iterator& operator++();
         bool operator!=(const Iterator &it);
