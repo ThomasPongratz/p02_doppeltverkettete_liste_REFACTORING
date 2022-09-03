@@ -4,6 +4,5 @@
 // Author: Thomas Pongratz
 //-------------------------------------------------------------------
 #include "fraesung.h"
-#include <cmath>
   
 Fraesung::~Fraesung() {}
