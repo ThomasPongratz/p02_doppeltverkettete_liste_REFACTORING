@@ -40,13 +40,13 @@ int main(){
     list.push_back(&w0);
     list.push_back(&w1);
     list.push_back(&w2);
-
+/*
     cout << list.size() << endl;
     cout << "Ausgabe der Liste" << endl;
     for (int i = 0; i < list.size(); ++i) {
         list.at(i)->output(cout);
         cout << endl;
     }
-
+*/
     return 0;
 }

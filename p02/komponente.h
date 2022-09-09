@@ -24,6 +24,14 @@ public:
     double getY() const { return y; }
     
     double getXAbsolute() const {
+        double erg = getX();
+        if (parent != nullptr) {
+            erg += parent->getXAbsolute();
+        }
+        return erg;
+    }
+    /*
+    double getXAbsolute() const {
         double erg = 0.0;
         if (parent != nullptr) {
             erg = getX() + parent->getXAbsolute();
@@ -32,7 +40,15 @@ public:
         }
         return erg;
     }
-    
+    */
+    double getYAbsolute() const {
+        double erg = getY();
+        if (parent != nullptr) {
+            erg += parent->getYAbsolute();
+        }
+        return erg;
+    }
+    /*
     double getYAbsolute() const {
         double erg = 0.0;
         if (parent != nullptr) {
@@ -42,7 +58,7 @@ public:
         }
         return erg;
     }
-    
+    */
     double distance(const IKomponente *k) const {
         return sqrt(pow(this->getXAbsolute() - k->getXAbsolute(), 2) 
             + pow(this->getYAbsolute() - k->getXAbsolute(), 2));

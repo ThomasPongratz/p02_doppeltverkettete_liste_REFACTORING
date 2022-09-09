@@ -15,26 +15,58 @@ class DeList {
 
         // CopyZuweisungsOperator
         DeList& operator=(const DeList &rhs);
-                       
+                    
         void clear() {
-            
+            IKomponentenElement* tmp = nullptr;
+            while (first != nullptr) {
+                tmp = f
+            }
         }
 
         int size() const { return counter; }
 
         Iterator erase(Iterator pos) {
-            
+            IKomponentenElement* pActual = getElement(pos);
+            Iterator iResult = Iterator{pActual};
+            if (pActual != nullptr) {
+                IKomponentenElement* pNext = pActual->next;
+                IKomponentenElement* pBefore = pActual->before;
+                if (pNext != nullptr) {
+                    pNext->before = pBefore;
+                }
+                if (pBefore != nullptr) {
+                    pBefore->next = pNext;
+                }
+                if (pActual == first) {
+                    first = pActual->next;
+                    if (first != nullptr) {
+                        first->before = nullptr;
+                    }
+                }
+                delete pActual;
+                --counter;
+                iResult = Iterator(pNext);
+            }
+            return iResult;
         }
+        
         void push_back(IKomponente *k) {
             if (k != nullptr) {
-                IKomponentenElement *newElement = new IKomponentenElement;
-                newElement->k = k;
-                newElement->next = nullptr;
-                IKomponentenElement *tmp = first;
-                while (tmp->next != nullptr) {
-                    tmp = tmp->next;
+                IKomponentenElement *pNewElement = new IKomponentenElement;
+                pNewElement->k = k;
+                pNewElement->next = nullptr;
+                if (first != nullptr) {
+                    IKomponentenElement *pCurrent = first;
+                    for (int i = 0; i < counter && pCurrent->next != nullptr; ++i) {
+                        pCurrent = pCurrent->next;
+                    }
+                    pCurrent->next = pNewElement;
+                    pNewElement->before = pCurrent;
+                } else {
+                    pNewElement->before = nullptr;
+                    first = pNewElement;
                 }
-                tmp->before = ;
+                ++counter;
             }
         }
 
@@ -45,12 +77,12 @@ class DeList {
     private:
         int counter;
         IKomponentenElement *first;
-
+        
         // getElement() noetig fuer erase()
         IKomponentenElement* getElement(Iterator it) const {
             IKomponentenElement *pElement = first;
             Iterator iter = begin();
-            while (iter != it && it != end()) {
+            while (it != end() && iter != it) {
                 pElement = pElement->next;
                 ++iter;
             }
