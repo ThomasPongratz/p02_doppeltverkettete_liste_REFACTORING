@@ -9,18 +9,37 @@ class DeList {
         DeList() : counter{0}, first{nullptr} {}
 
         // CopyKonstruktor
-        DeList(const DeList &rhs);
+        DeList(const DeList &rhs) : DeList() {
+            auto it = rhs.begin();
+            while (it != rhs.end()) {
+                push_back(*it);
+                ++it;
+            }   
+        }
                                 
         ~DeList() { clear(); }
 
         // CopyZuweisungsOperator
-        DeList& operator=(const DeList &rhs);
-                    
+        DeList& operator=(const DeList &rhs) {
+            if (this != &rhs) {
+                clear();
+                Iterator it = rhs.begin();
+                while (it != rhs.end()) {
+                    push_back(*it);
+                    ++it;
+                }
+            }
+            return *this;
+        }
+
         void clear() {
             IKomponentenElement* tmp = nullptr;
             while (first != nullptr) {
-                tmp = f
+                tmp = first->next;
+                delete first;
+                first = tmp;
             }
+            counter = 0;
         }
 
         int size() const { return counter; }
