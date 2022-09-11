@@ -7,7 +7,7 @@
 class Werkstueck : public Komponente {
     public:
         Werkstueck(double xPos = 0.0, double yPos = 0.0, double h = 1, double w = 1) 
-            : Komponente{xPos, yPos}, height{h}, width{w} {}
+            : Komponente{xPos, yPos}, height{h}, width{w}, pathIsOptimized{false} {}
         ~Werkstueck();
         double getHeight() const { return height; }
         double getWidth() const { return width; }

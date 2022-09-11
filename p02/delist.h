@@ -45,24 +45,24 @@ class DeList {
         int size() const { return counter; }
 
         Iterator erase(Iterator pos) {
-            IKomponentenElement* pActual = getElement(pos);
-            Iterator iResult = Iterator{pActual};
-            if (pActual != nullptr) {
-                IKomponentenElement* pNext = pActual->next;
-                IKomponentenElement* pBefore = pActual->before;
+            IKomponentenElement* k = getElement(pos);
+            Iterator iResult = Iterator{k};
+            if (k != nullptr) {
+                IKomponentenElement* pNext = k->next;
+                IKomponentenElement* pBefore = k->before;
                 if (pNext != nullptr) {
                     pNext->before = pBefore;
                 }
                 if (pBefore != nullptr) {
                     pBefore->next = pNext;
                 }
-                if (pActual == first) {
-                    first = pActual->next;
+                if (k == first) {
+                    first = k->next;
                     if (first != nullptr) {
                         first->before = nullptr;
                     }
                 }
-                delete pActual;
+                delete k;
                 --counter;
                 iResult = Iterator(pNext);
             }
